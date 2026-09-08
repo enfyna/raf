@@ -1,0 +1,58 @@
+<!-- RAF Shelf Template - Edit this file to customize the shelf UI -->
+<!-- This file is fetched by content.js via chrome.runtime.getURL("shelf.html") -->
+<!-- You can change classes, structure, and styling hooks here. JS will fill data via data-raf-* attributes. -->
+<div id="raf-shelf" class="raf-shelf">
+  <!-- Podium with 3 steps: place 1 is center/highest, 2 is left, 3 is right -->
+  <div class="raf-podium" data-raf-podium>
+    <!-- Steps are injected by JS via #raf-step-template -->
+  </div>
+
+  <!-- Notes area: hardest info / errors -->
+  <div class="raf-shelf-note" data-raf-note style="display:none"></div>
+
+  <!-- Actions: shown only on own profile -->
+  <div class="raf-shelf-actions" data-raf-actions style="display:none">
+    <button type="button" class="btn-base btn-base--default btn-base--size-sm" data-raf-picker-toggle>Pick Favorites</button>
+  </div>
+
+  <!-- Picker: search and select favorites (hidden until toggled) -->
+  <div class="raf-picker" data-raf-picker style="display:none">
+    <input type="search" placeholder="Search achievements..." autocomplete="off" data-raf-search>
+    <div class="raf-picker-grid" data-raf-grid></div>
+    <div class="raf-shelf-note" data-raf-picker-info></div>
+    <div class="raf-shelf-actions">
+      <button type="button" class="btn-base btn-base--default btn-base--size-sm" data-raf-clear>Clear</button>
+      <button type="button" class="btn-base btn-base--default btn-base--size-sm" data-raf-save>Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Step template: cloned for each achievement on the podium (1-3) -->
+<template id="raf-step-template">
+  <div class="raf-step" data-place="">
+    <div class="raf-badge-wrap">
+      <span class="inline">
+        <a target="_blank" data-raf-link>
+          <img data-raf-badge alt="">
+        </a>
+      </span>
+      <!-- Crown for 1st place injected only for place 1 -->
+      <img class="raf-crown" data-raf-crown alt="" style="display:none">
+      <div class="raf-description" style="text-align: center; font-size: 24px; "></div>
+    </div>
+  </div>
+</template>
+
+<!-- Empty step template -->
+<template id="raf-step-empty-template">
+  <div class="raf-step raf-empty"><span>Empty</span></div>
+</template>
+
+<!-- Picker item template -->
+<template id="raf-picker-item-template">
+  <div class="raf-picker-item">
+    <img data-raf-picker-img alt="">
+    <span data-raf-picker-title></span>
+    <span data-raf-picker-game style="color:var(--text-color-muted, #828282)"></span>
+  </div>
+</template>

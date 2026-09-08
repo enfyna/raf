@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=330, initial-scale=1">
+<title>RAF Settings</title>
+<link rel="stylesheet" href="popup.css">
+</head>
+<body>
+<div class="header">
+  <img src="icons/gold.svg" class="crown" alt="">
+  <h1>RAF Settings</h1>
+</div>
+<div class="panel">
+  <label class="row">
+    <span>Display Mode</span>
+    <select id="mode" class="ctrl-select"></select>
+  </label>
+  <label class="row">
+    <span>API Key</span>
+    <span class="ctrl" style="flex-direction:column; align-items:stretch; gap:4px; flex:1; max-width:172px;">
+      <input type="password" id="apikey" class="ctrl-input" placeholder="optional web API key" autocomplete="off" data-form-type="other" data-lpignore="true">
+      <span style="font-size:10px; color:var(--rabg-muted);">Settings → API Key on RA site. Enables full hardest.</span>
+    </span>
+  </label>
+  <div class="row">
+    <span>Favorites</span>
+    <span class="ctrl">
+      <button type="button" id="edit" class="btn">Pick Favorites</button>
+    </span>
+  </div>
+  <div class="row">
+    <span>Backup</span>
+    <span class="ctrl">
+      <button type="button" id="export" class="btn">Export</button>
+      <button type="button" id="import" class="btn">Import</button>
+    </span>
+  </div>
+  <div class="row last">
+    <span>Popup Theme</span>
+    <select id="popup-theme" class="ctrl-select"></select>
+  </div>
+</div>
+<div id="status" class="status"></div>
+<script src="popup.js"></script>
+</body>
+</html>

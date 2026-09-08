@@ -1,0 +1,64 @@
+{
+  "manifest_version": 3,
+  "name": "RAF - RetroAchievements Favorite Achievements",
+  "version": "0.1.5",
+  "description": "Shows your hardest 3 achievements (and profile info) on a podium next to your profile header, with private favorite 3 selection.",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "raf-for-retroachievements@foss",
+      "strict_min_version": "109.0",
+      "data_collection_permissions": {
+        "required": [
+          "none"
+        ]
+      }
+    }
+  },
+  "icons": {
+    "48": "icons/gold.svg",
+    "96": "icons/gold.svg"
+  },
+  "action": {
+    "default_title": "RAF Settings",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "48": "icons/gold.svg",
+      "96": "icons/gold.svg"
+    }
+  },
+  "permissions": [
+    "storage"
+  ],
+  "host_permissions": [
+    "*://retroachievements.org/*",
+    "*://*.retroachievements.org/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "*://retroachievements.org/*",
+        "*://*.retroachievements.org/*"
+      ],
+      "css": [
+        "content.css"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "icons/gold.svg",
+        "icons/silver.svg",
+        "shelf.html"
+      ],
+      "matches": [
+        "*://retroachievements.org/*",
+        "*://*.retroachievements.org/*"
+      ]
+    }
+  ]
+}

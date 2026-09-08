@@ -1,0 +1,280 @@
+/* RAF - Podium below profile info (not in header) */
+.raf-shelf {
+    /* margin: 16px 0; */
+    padding: 12px;
+    background-color: transparent;
+}
+
+.raf-shelf-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    font-size: 0.8rem;
+    color: var(--text-color-muted, #828282);
+}
+
+.raf-shelf-header strong {
+    color: var(--text-color, #c8c8c8);
+}
+
+.raf-profile-mini {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 6px 8px;
+    background: var(--embed-color, #161616);
+    border-radius: 4px;
+    font-size: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.raf-profile-mini img {
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+    object-fit: cover;
+    flex: none;
+}
+
+.raf-profile-mini .raf-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.raf-profile-mini .raf-meta .raf-name {
+    font-weight: 700;
+    color: var(--heading-color, #2c97fa);
+}
+
+.raf-profile-mini .raf-meta .raf-stats {
+    color: var(--text-color-muted, #828282);
+    font-size: 0.7rem;
+}
+
+/* Podium: 3 steps, center highest */
+.raf-podium {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 4px;
+    min-height: 50px;
+}
+
+.raf-step {
+    flex: 1;
+    /* max-width: 77px; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    /* border-radius: 6px; */
+    /* background: var(--embed-color, #161616); */
+    /* border: 2px solid var(--embed-highlight-color, #2a2a2a); */
+    border-bottom: none;
+    position: relative;
+}
+
+.raf-step[data-place="1"] {
+    height: 64px;
+    max-width: 60px;
+    order: 2;
+    /* background-color: gold; */
+    /* background: linear-gradient(to bottom, green , transparent 80%); */
+    /* border-color: gold; */
+    /* border-width: 2px; */
+    padding: 4px 4px 4px;
+    z-index: 2;
+}
+
+.raf-step[data-place="2"] {
+    height: 64px;
+    max-width: 60px;
+    /* background: linear-gradient(to bottom, red , transparent 80%); */
+    /* border-color: silver; */
+    /* border-width: 2px; */
+    order: 1;
+    padding: 4px 4px 4px;
+}
+
+.raf-step[data-place="3"] {
+    height: 64px;
+    max-width: 60px;
+    /* background: linear-gradient(to bottom, blue , transparent 80%); */
+    /* border-color: #cd7f32; */
+    /* border-width: 2px; */
+    order: 3;
+    padding: 4px 4px 4px;
+}
+
+.raf-step .raf-badge-wrap {
+    position: relative;
+    width: 48px;
+    height: 48px;
+    flex: none;
+}
+
+.raf-step[data-place="1"] .raf-badge-wrap {
+    width: 48px;
+    height: 48px;
+}
+
+.raf-step .raf-badge-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* border-radius: 4px; */
+    border: 4px solid transparent;
+    box-sizing: border-box;
+}
+
+.raf-step[data-place="1"] img {
+    border-color: green;
+}
+
+.raf-step[data-place="2"] img {
+    border-color: red;
+}
+
+.raf-step[data-place="3"] img {
+    border-color: blue;
+}
+
+.raf-step .raf-crown {
+    display: none;
+    position: absolute;
+    top: 64px;
+    right: 16px;
+    max-width: 24px;
+    max-height: 24px;
+    filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.5));
+}
+
+.raf-step .raf-title {
+    margin-top: 4px;
+    font-size: 0.65rem;
+    line-height: 1.1;
+    text-align: center;
+    color: var(--text-color, #c8c8c8);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    word-break: break-word;
+}
+
+.raf-step .raf-game {
+    font-size: 0.6rem;
+    color: var(--text-color-muted, #828282);
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+.raf-step .raf-points {
+    margin-top: 2px;
+    font-size: 0.6rem;
+    color: var(--link-color, #2c97fa);
+}
+
+.raf-step.raf-empty {
+    justify-content: center;
+    border-style: dashed;
+    opacity: 0.6;
+}
+
+.raf-step.raf-empty span {
+    font-size: 0.65rem;
+    color: var(--text-color-muted, #828282);
+}
+
+.raf-shelf-note {
+    margin-top: 6px;
+    font-size: 0.65rem;
+    color: var(--text-color-muted, #828282);
+    text-align: center;
+}
+
+.raf-shelf-actions {
+    margin-top: 6px;
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+}
+
+/* Picker overlay inside shelf */
+.raf-picker {
+    margin-top: 10px;
+    padding: 8px;
+    border: 1px solid var(--embed-highlight-color, #2a2a2a);
+    border-radius: 4px;
+    background: var(--bg-color, #1a1a1a);
+    max-height: 320px;
+    overflow: auto;
+}
+
+.raf-picker input[type="search"] {
+    width: 100%;
+    padding: 4px 6px;
+    border: 1px solid var(--embed-highlight-color, #2a2a2a);
+    background: var(--embed-color, #161616);
+    color: var(--text-color, #c8c8c8);
+    border-radius: 4px;
+    font-size: 0.8rem;
+    margin-bottom: 6px;
+}
+
+.raf-picker-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(72px, 1fr));
+    gap: 6px;
+}
+
+.raf-picker-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    padding: 4px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    background: var(--embed-color, #161616);
+}
+
+.raf-picker-item:hover {
+    border-color: var(--link-color, #2c97fa);
+}
+
+.raf-picker-item.raf-selected {
+    border-color: gold;
+    background: rgba(244, 196, 48, 0.12);
+}
+
+.raf-picker-item img {
+    width: 40px;
+    height: 40px;
+    border-radius: 3px;
+    object-fit: cover;
+}
+
+.raf-picker-item span {
+    font-size: 0.6rem;
+    text-align: center;
+    color: var(--text-color, #c8c8c8);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Footer tweaks for RAF rows */
+.raf-footer-note {
+    font-size: 0.7rem;
+    color: var(--text-color-muted, #828282);
+}
