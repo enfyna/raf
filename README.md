@@ -1,5 +1,7 @@
 # RAF — RetroAchievements Favorite Achievements
 
+<img width="1920" height="1080" alt="raf" src="https://github.com/user-attachments/assets/f0c0b38a-3e76-4128-91f1-d0eb1ae3a385" />
+
 Firefox extension that shows your 3 most favorite achievements: *most fun* 😄, *most challenging* 🤯, *most proud* 🤫.
 
 ## Install
