@@ -3,7 +3,7 @@
 
   "name": "RAF - RetroAchievements Favorite Achievements",
   "description": "Shows your favorite 3 achievements next to your profile header.",
-  "version": "1.0",
+  "version": "1.1",
 
   "icons": {
     "48": "icons/medal.svg"

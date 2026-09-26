@@ -147,7 +147,7 @@ Enter your selection:`);
     });
 
     var span = document.createElement("span");
-    span.className = "inline";
+    span.className = "ra-tile inline";
     span.setAttribute(
         "x-data",
         "tooltipComponent($el, { dynamicType: 'achievement', dynamicId: '" + achievement.id + "'" + (username ? ", dynamicContext: '" + username + "'" : "") + " })"
@@ -159,7 +159,6 @@ Enter your selection:`);
     span.setAttribute("data-gameid", achievement.game);
     span.setAttribute("data-title", achievement.title || "");
     span.setAttribute("data-tier", achievement.is_hardcore ? "hc" : "sc");
-    span.className = "ra-tile"
 
     var a = document.createElement("a");
     a.className = "inline-block";
