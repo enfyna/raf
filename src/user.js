@@ -141,6 +141,9 @@ function makeBeatenTile(achievement, data_key, style, username) {
     var a = document.createElement("a");
     a.className = "inline-block";
     a.href = `https://retroachievements.org/achievement/${achievement.id}`;
+    a.addEventListener('click', function(e) {
+        e.stopPropagation();
+    });
 
     var img = document.createElement("img");
     img.loading = "lazy";
