@@ -42,14 +42,28 @@ function main() {
     ts.addEventListener('click', function(e) {
         e.stopPropagation();
 
-        const img = prompt("New background image URL:");
-        if (!img) return;
-        localStorage.setItem("banner_image", img);
-        main();
+        const opt = prompt(`1-Change banner image.
+2-Clear banner image.
+3-Get current banner image URL.
+4-Exit.
+Enter your selection:`);
+        if (!opt || opt.length != 1) return;
+
+        if (opt == "1") {
+            const img = prompt("New background image URL:");
+            if (!img) return;
+            localStorage.setItem("banner_image", img);
+            ts.style.backgroundImage = banner_image_style(img);
+        } else if (opt == "2") {
+            localStorage.removeItem("banner_image");
+        } else if (opt == "3") {
+            alert(`Current image URL: ${banner_image}`);
+        }
+        return;
     });
 
     const c = document.createElement('span');
-    c.className = 'flex justify-center items-center gap-4';
+    c.className = 'flex items-center gap-4';
     c.id = "RAF-Container";
 
     for (const id of ["RAF-Slot1", "RAF-Slot2", "RAF-Slot3"]) {
@@ -90,34 +104,40 @@ function makeEmptyTile() {
 
 function makeBeatenTile(achievement, data_key, style, username) {
     var wrap = document.createElement("div");
-    wrap.setAttribute("data-beaten", "true");
-    wrap.setAttribute("data-gameid", achievement.game);
-    wrap.setAttribute("data-title", achievement.title || "");
-    wrap.setAttribute("data-tier", achievement.is_hardcore ? "hc" : "sc");
     wrap.style.backgroundColor = style.backgroundColor;
-    wrap.className = "ra-tile p-1 rounded";
+    wrap.className = "p-1";
     wrap.addEventListener('click', function(e) {
         e.stopPropagation();
 
-        const del = confirm("Do you want to clean up this slot? (Cancel to skip)");
-        if (del) {
-            localStorage.removeItem(data_key + "-Achievement");
-            main();
-            return;
-        }
+        const opt = prompt(`1-Clean up this slot.
+2-Change emoji.
+3-Change border color.
+4-Exit.
+Enter your selection:`);
+        if (!opt || opt.length != 1) return;
 
         let change = false;
 
-        const emo = prompt("Enter the new emoji (default: '🏅'): (Cancel to skip)");
-        if (emo && emo.length > 0) {
-            change = true;
-            style.emoji = emo;
-        }
-
-        const col = prompt("Enter the new background color (default: '#3232324d'): (Cancel to skip)");
-        if (col && col.length >= 7) {
-            change = true;
-            style.backgroundColor = col;
+        if (opt == "1") {
+            const del = confirm("Are you sure to clean up this slot?");
+            if (del) {
+                localStorage.removeItem(data_key + "-Achievement");
+                main();
+                return;
+            }
+        } else if (opt == "2") {
+            const emo = prompt("Enter the new emoji (default: '🏅'):");
+            if (emo && emo.length > 0) {
+                change = true;
+                style.emoji = emo;
+            }
+        } else if (opt == "3") {
+            let col = prompt("Enter the new background color (default: '#3232324d'):");
+            if (col && col.length >= 6) {
+                if (!col.startsWith("#")) col = "#" + col;
+                change = true;
+                style.backgroundColor = col;
+            }
         }
 
         if (change) {
@@ -135,6 +155,11 @@ function makeBeatenTile(achievement, data_key, style, username) {
     span.setAttribute("x-on:mouseover", "showTooltip($event)");
     span.setAttribute("x-on:mouseleave", "hideTooltip");
     span.setAttribute("x-on:mousemove", "trackMouseMovement($event)");
+    span.setAttribute("data-beaten", "true");
+    span.setAttribute("data-gameid", achievement.game);
+    span.setAttribute("data-title", achievement.title || "");
+    span.setAttribute("data-tier", achievement.is_hardcore ? "hc" : "sc");
+    span.className = "ra-tile"
 
     var a = document.createElement("a");
     a.className = "inline-block";
