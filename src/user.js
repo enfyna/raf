@@ -32,14 +32,12 @@ function main() {
         return;
     }
 
+    ts.style.backgroundSize = "cover";
+    ts.style.backgroundPosition = "center";
+
     const banner_image = localStorage.getItem("banner_image");
-    if (banner_image) {
-        ts.style.backgroundSize = "cover";
-        ts.style.backgroundPosition = "center";
-        ts.style.backgroundImage = `linear-gradient(69deg, #161616 50%, transparent), url('${banner_image}')`;
-    } else {
-        ts.style.backgroundImage = 'none'
-    }
+    ts.style.backgroundImage = banner_image ?
+        banner_image_style(banner_image) : 'none';
 
     ts.addEventListener('click', function(e) {
         e.stopPropagation();
@@ -181,6 +179,10 @@ function getLoggedInUsername() {
     if (!mm1) return "";
 
     return decodeURIComponent(mm1[1]);
+}
+
+function banner_image_style(img) {
+    return `linear-gradient(69deg, #161616dd 40%, transparent), url('${img}')`;
 }
 
 function log(text) {
