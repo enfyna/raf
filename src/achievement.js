@@ -38,18 +38,18 @@ function main() {
     const hardcore = type_svg.parentElement.classList.contains('text-[gold]');
 
     function selectedAchievement(button, _ev) {
-        var selected_slot = button.target.id;
+        var slot_id = button.target.id;
+        var slot_text = button.target.innerText;
 
-        let p = `Do you want to select this achievement for ${selected_slot} ?`
+        let p = `Do you want to select this achievement for ${slot_text} ?`
 
-        const data_str = localStorage.getItem(selected_slot);
+        const data_str = localStorage.getItem(slot_id);
         if (data_str && data_str.length > 0) {
             const data = JSON.parse(data_str);
 
             if (data['id'] !== undefined && data['id'] !== null && data['id'].length > 0) {
-                p = `${selected_slot} is currently used by '${data.title}'. Are you sure to overwrite with this achievement ?`
+                p = `${slot_text} is currently used by '${data.title}'. Are you sure to overwrite with this achievement ?`
             }
-
         }
 
         if (confirm(p)) {
@@ -60,7 +60,7 @@ function main() {
                 title: achievement_img.alt,
                 is_hardcore: hardcore,
             };
-            localStorage.setItem(selected_slot, JSON.stringify(d));
+            localStorage.setItem(slot_id, JSON.stringify(d));
             button.target.innerText = "OK!"
         }
     }
