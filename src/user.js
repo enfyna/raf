@@ -12,13 +12,13 @@
 window.requestIdleCallback(main);
 
 function main() {
-    var ts = document.querySelector("article div.relative.flex.border-x.border-embed-highlight.flex-row-reverse");
-    if (!ts) {
+    var banner = document.querySelector("article div.relative.flex.border-x.border-embed-highlight.flex-row-reverse");
+    if (!banner) {
         console.error("RAF: Profile banner not found!");
         return;
     }
 
-    const oc = ts.querySelector("#RAF-Container");
+    const oc = banner.querySelector("#RAF-Container");
     if (oc) {
         console.info("RAF: Old container still exists! Removing...");
         oc.remove();
@@ -32,14 +32,14 @@ function main() {
         return;
     }
 
-    ts.style.backgroundSize = "cover";
-    ts.style.backgroundPosition = "center";
+    banner.style.backgroundSize = "cover";
+    banner.style.backgroundPosition = "center";
 
     const banner_image = localStorage.getItem("banner_image");
-    ts.style.backgroundImage = banner_image ?
+    banner.style.backgroundImage = banner_image ?
         banner_image_style(banner_image) : 'none';
 
-    ts.addEventListener('click', function(e) {
+    banner.addEventListener('click', function(e) {
         e.stopPropagation();
 
         const opt = prompt(`1-Change banner image.
@@ -53,7 +53,7 @@ Enter your selection:`);
             const img = prompt("New background image URL:", banner_image);
             if (!img) return;
             localStorage.setItem("banner_image", img);
-            ts.style.backgroundImage = banner_image_style(img);
+            banner.style.backgroundImage = banner_image_style(img);
         } else if (opt == "2") {
             localStorage.removeItem("banner_image");
         } else if (opt == "3") {
@@ -84,7 +84,7 @@ Enter your selection:`);
         }
     }
 
-    ts.append(c);
+    banner.append(c);
 }
 
 function makeEmptyTile() {
