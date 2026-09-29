@@ -69,12 +69,10 @@ function main() {
     if (container) {
         console.info('RAF: Slots already generated! Binding onclick listeners...');
 
-        const b1 = container.querySelector("#RAF-Slot1");
-        b1.addEventListener('click', selectedAchievement);
-        const b2 = container.querySelector("#RAF-Slot2");
-        b2.addEventListener('click', selectedAchievement);
-        const b3 = container.querySelector("#RAF-Slot3");
-        b3.addEventListener('click', selectedAchievement);
+        for (const id of ["#RAF-Slot1-Achievement", "#RAF-Slot2-Achievement", "#RAF-Slot3-Achievement"]) {
+            const b = container.querySelector(id);
+            b.addEventListener('click', selectedAchievement);
+        }
 
     } else {
         console.info('RAF: Slots not found! Generating...');
@@ -91,28 +89,17 @@ function main() {
             t.innerText = 'RAF: Display this achievement on your profile!';
             t.id = 'RAF-Title';
 
-            // retroachievements button class names
-            const button_class_names = "btn-base btn-base--default btn-base--size-sm gap-1.5";
+            c.append(t);
 
-            const b1 = document.createElement('button');
-            b1.innerText = "Slot 1";
-            b1.id = "RAF-Slot1-Achievement";
-            b1.className = button_class_names;
-            b1.addEventListener('click', selectedAchievement);
+            for (let id = 1; id <= 3; id++) {
+                let b = document.createElement('button');
+                b.className = "btn-base btn-base--default btn-base--size-sm gap-1.5";
+                b.innerText = "Slot " + id;
+                b.id = "RAF-Slot" + id + "-Achievement";
+                b.addEventListener('click', selectedAchievement);
+                c.append(b);
+            }
 
-            const b2 = document.createElement('button');
-            b2.innerText = "Slot 2";
-            b2.id = "RAF-Slot2-Achievement";
-            b2.className = button_class_names;
-            b2.addEventListener('click', selectedAchievement);
-
-            const b3 = document.createElement('button');
-            b3.innerText = "Slot 3";
-            b3.id = "RAF-Slot3-Achievement";
-            b3.className = button_class_names;
-            b3.addEventListener('click', selectedAchievement);
-
-            c.append(t, b1, b2, b3);
             div.append(c);
         }
     }
