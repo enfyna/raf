@@ -14,18 +14,18 @@ window.requestIdleCallback(main);
 function main() {
     const article = document.querySelector('article');
     if (!article) {
-        log('Article not found?');
+        console.error('RAF: Article not found?');
         return;
     }
 
     const achievement_img = article.querySelector('img[src^="https://media.retroachievements.org/Badge/"]');
     if (!achievement_img) {
-        log('Badge not found!');
+        console.error('RAF: Badge not found!');
         return;
     }
 
     if (achievement_img.src.indexOf("_lock") >= 0) {
-        log('Achievement is locked!');
+        console.info('RAF: Achievement is locked!');
         return;
     }
 
@@ -67,7 +67,7 @@ function main() {
 
     const container = article.querySelector("#RAF-Container");
     if (container) {
-        log('Slots already generated! Binding onclick listeners...');
+        console.info('RAF: Slots already generated! Binding onclick listeners...');
 
         const b1 = container.querySelector("#RAF-Slot1");
         b1.addEventListener('click', selectedAchievement);
@@ -77,7 +77,7 @@ function main() {
         b3.addEventListener('click', selectedAchievement);
 
     } else {
-        log('Slots not found! Generating...');
+        console.info('RAF: Slots not found! Generating...');
 
         const div = article.querySelector("div.gap-4.flex-col.flex");
         if (div) {
@@ -120,8 +120,4 @@ function main() {
 
 function getLastUrlSegment(url) {
     return new URL(url).pathname.split('/').filter(Boolean).pop();
-}
-
-function log(text) {
-    console.info(`RAF: ${text}`);
 }

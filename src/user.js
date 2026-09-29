@@ -14,13 +14,13 @@ window.requestIdleCallback(main);
 function main() {
     var ts = document.querySelector("article div.relative.flex.border-x.border-embed-highlight.flex-row-reverse");
     if (!ts) {
-        log("Profile header not found!");
+        console.error("RAF: Profile banner not found!");
         return;
     }
 
     const oc = ts.querySelector("#RAF-Container");
     if (oc) {
-        log("Old container still exists! Removing...");
+        console.info("RAF: Old container still exists! Removing...");
         oc.remove();
     }
 
@@ -28,7 +28,7 @@ function main() {
     const profile = getUsernameFromURL();
 
     if (username != profile) {
-        log("Viewing another users profile. Nothing to do.");
+        console.info("RAF: Viewing another users profile. Nothing to do.");
         return;
     }
 
@@ -207,8 +207,4 @@ function getLoggedInUsername() {
 
 function banner_image_style(img) {
     return `linear-gradient(69deg, #161616dd 40%, transparent), url('${img}')`;
-}
-
-function log(text) {
-    console.info(`RAF: ${text}`);
 }
