@@ -50,7 +50,7 @@ Enter your selection:`);
         if (!opt || opt.length != 1) return;
 
         if (opt == "1") {
-            const img = prompt("New background image URL:");
+            const img = prompt("New background image URL:", banner_image);
             if (!img) return;
             localStorage.setItem("banner_image", img);
             ts.style.backgroundImage = banner_image_style(img);
@@ -126,13 +126,13 @@ Enter your selection:`);
                 return;
             }
         } else if (opt == "2") {
-            const emo = prompt("Enter the new emoji (default: '🏅'):");
+            const emo = prompt("Enter the new emoji (default: '🏅'):", style.emoji);
             if (emo && emo.length > 0) {
                 change = true;
                 style.emoji = emo;
             }
         } else if (opt == "3") {
-            let col = prompt("Enter the new background color (default: '#3232324d'):");
+            let col = prompt("Enter the new background color (default: '#3232324d'):", style.backgroundColor);
             if (col && col.length >= 6) {
                 if (!col.startsWith("#")) col = "#" + col;
                 change = true;
