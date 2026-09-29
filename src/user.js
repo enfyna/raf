@@ -91,6 +91,10 @@ function makeEmptyTile() {
     var wrap = document.createElement("div");
     wrap.style.backgroundColor = "#3232324d";
     wrap.className = "p-1 rounded";
+    wrap.addEventListener('click', function(e) {
+        e.stopPropagation();
+        alert("To place an achievement go to its page and select this slot. (only unlocked achievements)");
+    });
 
     var img = document.createElement("img");
     img.width = 48;
