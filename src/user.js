@@ -1,3 +1,11 @@
+const DEFAULT_BANNER_STYLE = {
+    image: "none", stop: "40", rotation: "69",
+    color1: "#161616dd", color2: "#00000000",
+};
+const DEFAULT_ACHIEVEMENT_STYLE = {
+    backgroundColor: "#3232324d", emoji: "🏅"
+};
+
 {
     let lastUrl = location.href;
     const observer = new MutationObserver(() => {
@@ -35,30 +43,61 @@ function main() {
     banner.style.backgroundSize = "cover";
     banner.style.backgroundPosition = "center";
 
-    const banner_image = localStorage.getItem("banner_image");
-    banner.style.backgroundImage = banner_image ?
-        banner_image_style(banner_image) : 'none';
+    const banner_data = localStorage.getItem("banner");
+    const banner_style = banner_data ?
+        JSON.parse(banner_data) : DEFAULT_BANNER_STYLE;
+    banner.style.backgroundImage = banner_image_style(banner_style);
 
     banner.addEventListener('click', function(e) {
         e.stopPropagation();
 
         const opt = prompt(`1-Change banner image.
 2-Clear banner image.
-3-Get current banner image URL.
-4-Exit.
+3-Change gradient rotation.
+4-Change gradient stop.
+5-Change gradient main color.
+6-Change gradient secondary color.
+7-Reset all gradient settings to default.
+8-Exit.
 Enter your selection:`);
         if (!opt || opt.length != 1) return;
 
         if (opt == "1") {
-            const img = prompt("New background image URL:", banner_image);
+            const img = prompt("New background image URL: [http link of the image]", banner_style.image);
             if (!img) return;
-            localStorage.setItem("banner_image", img);
-            banner.style.backgroundImage = banner_image_style(img);
+            banner_style.image = img;
         } else if (opt == "2") {
-            localStorage.removeItem("banner_image");
+            banner_style.image = 'none';
         } else if (opt == "3") {
-            alert(`Current image URL: ${banner_image}`);
-        }
+            const rot = prompt(`New gradient rotation degree: (default: ${DEFAULT_BANNER_STYLE.rotation}) [percentage value]`, banner_style.rotation);
+            if (!rot) return;
+            banner_style.rotation = rot;
+        } else if (opt == "4") {
+            const stp = prompt(`New gradient stop: (default: ${DEFAULT_BANNER_STYLE.stop}) [percentage value]`, banner_style.stop);
+            if (!stp) return;
+            banner_style.stop = stp;
+        } else if (opt == "5") {
+            let col = prompt(`New gradient main color: (default: ${DEFAULT_BANNER_STYLE.color1}) [hex color notation, #rrggbbaa]`, banner_style.color1);
+            if (!col) return;
+            if (col.length == 8 && !col.startsWith("#")) col = "#" + col;
+            if (col.length != 9) { alert("Input has to be 9 characters long!"); return; }
+            banner_style.color1 = col;
+        } else if (opt == "6") {
+            let col = prompt(`New gradient secondary color: (default: ${DEFAULT_BANNER_STYLE.color2}) [hex color notation, #rrggbbaa]`, banner_style.color2);
+            if (!col) return;
+            if (col.length == 8 && !col.startsWith("#")) col = "#" + col;
+            if (col.length != 9) { alert("Input has to be 9 characters long!"); return; }
+            banner_style.color2 = col;
+        } else if (opt == "7") {
+            const col = confirm("Are you sure to reset the gradient to default settings?");
+            if (!col) return;
+            banner_style.stop = DEFAULT_BANNER_STYLE.stop;
+            banner_style.rotation = DEFAULT_BANNER_STYLE.rotation;
+            banner_style.color1 = DEFAULT_BANNER_STYLE.color1;
+            banner_style.color2 = DEFAULT_BANNER_STYLE.color2;
+        } else return;
+        banner.style.backgroundImage = banner_image_style(banner_style);
+        localStorage.setItem("banner", JSON.stringify(banner_style));
         return;
     });
 
@@ -78,7 +117,7 @@ Enter your selection:`);
         if (ach['id'] !== undefined && ach['id'] !== null && ach['id'].length > 0) {
             const style_str = localStorage.getItem(id + "-Style");
             const style = style_str ?
-                JSON.parse(style_str) : { backgroundColor: "#3232324d", emoji: "🏅" };
+                JSON.parse(style_str) : DEFAULT_ACHIEVEMENT_STYLE;
 
             c.append(makeBeatenTile(ach, id, style, username));
         }
@@ -130,13 +169,13 @@ Enter your selection:`);
                 return;
             }
         } else if (opt == "2") {
-            const emo = prompt("Enter the new emoji (default: '🏅'):", style.emoji);
-            if (emo && emo.length > 0) {
+            const emo = prompt(`Enter the new emoji (default: '${DEFAULT_ACHIEVEMENT_STYLE.emoji}') [any string, type '-' for empty]:`, style.emoji);
+            if (emo) {
                 change = true;
-                style.emoji = emo;
+                style.emoji = (emo != '-') ? emo : null;
             }
         } else if (opt == "3") {
-            let col = prompt("Enter the new background color (default: '#3232324d'):", style.backgroundColor);
+            let col = prompt(`Enter the new background color (default: '${DEFAULT_ACHIEVEMENT_STYLE.backgroundColor}') [hexadecimal color notation, #rrggbbaa]:`, style.backgroundColor);
             if (col && col.length >= 6) {
                 if (!col.startsWith("#")) col = "#" + col;
                 change = true;
@@ -154,7 +193,7 @@ Enter your selection:`);
     span.className = "ra-tile inline";
     span.setAttribute(
         "x-data",
-        "tooltipComponent($el, { dynamicType: 'achievement', dynamicId: '" + achievement.id + "'" + (username ? ", dynamicContext: '" + username + "'" : "") + " })"
+        "tooltipComponent($el, { dynamicType: 'achievement', dynamicId: '" + achievement.id + "', dynamicContext: '" + username + "'})"
     );
     span.setAttribute("x-on:mouseover", "showTooltip($event)");
     span.setAttribute("x-on:mouseleave", "hideTooltip");
@@ -184,11 +223,12 @@ Enter your selection:`);
     span.appendChild(a);
     wrap.appendChild(span);
 
-    var emoji = document.createElement("div");
-    emoji.className = "pt-1 text-center";
-    emoji.innerText = style.emoji;
-
-    wrap.appendChild(emoji);
+    if (style.emoji && style.emoji.length > 0) {
+        var emoji = document.createElement("div");
+        emoji.className = "pt-1 text-center";
+        emoji.innerText = style.emoji;
+        wrap.appendChild(emoji);
+    }
 
     return wrap;
 }
@@ -209,6 +249,6 @@ function getLoggedInUsername() {
     return decodeURIComponent(mm1[1]);
 }
 
-function banner_image_style(img) {
-    return `linear-gradient(69deg, #161616dd 40%, transparent), url('${img}')`;
+function banner_image_style(style) {
+    return `linear-gradient(${style.rotation}deg, ${style.color1} ${style.stop}%, ${style.color2}), url('${style.image}')`;
 }
