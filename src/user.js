@@ -50,7 +50,7 @@ function main() {
 
     const banner_data = localStorage.getItem("banner");
     const banner_style = banner_data ?
-        JSON.parse(banner_data) : DEFAULT_BANNER_STYLE;
+        JSON.parse(banner_data) : { ...DEFAULT_BANNER_STYLE };
     banner.style.backgroundImage = banner_image_style(banner_style);
 
     banner.addEventListener('click', function(e) {
@@ -122,7 +122,7 @@ Enter your selection:`);
         if (ach['id'] !== undefined && ach['id'] !== null && ach['id'].length > 0) {
             const style_str = localStorage.getItem(id + "-Style");
             const style = style_str ?
-                JSON.parse(style_str) : DEFAULT_ACHIEVEMENT_STYLE;
+                JSON.parse(style_str) : { ...DEFAULT_ACHIEVEMENT_STYLE };
 
             c.append(makeBeatenTile(ach, id, style, username));
         }
