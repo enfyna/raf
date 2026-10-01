@@ -65,7 +65,7 @@ function main() {
 6-Change gradient secondary color.
 7-Reset all gradient settings to default.
 8-Exit.
-Enter your selection:`);
+Enter number to select:`);
             if (!opt || opt.length != 1) return;
 
             if (opt == "1") {
@@ -165,7 +165,7 @@ function makeBeatenTile(achievement, data_key, style, username) {
 3-Change border color.
 4-Reset customization settings to default for this slot. 
 5-Exit.
-Enter your selection:`);
+Enter number to select:`);
         if (!opt || opt.length != 1) return;
 
         let change = false;
