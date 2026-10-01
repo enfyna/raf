@@ -137,7 +137,7 @@ function makeEmptyTile() {
     wrap.className = "p-1 rounded";
     wrap.addEventListener('click', function(e) {
         e.stopPropagation();
-        alert("To place an achievement go to its page and select this slot. (only unlocked achievements)");
+        alert("To place an achievement go to its page and select this slot. (only unlocked achievements) [sometimes the slot options on the achievement page doesnt generate, try to refresh the page in that case]");
     });
 
     var img = document.createElement("img");
@@ -160,7 +160,8 @@ function makeBeatenTile(achievement, data_key, style, username) {
         const opt = prompt(`1-Clean up this slot.
 2-Change emoji.
 3-Change border color.
-4-Exit.
+4-Reset customization settings to default for this slot. 
+5-Exit.
 Enter your selection:`);
         if (!opt || opt.length != 1) return;
 
@@ -185,6 +186,13 @@ Enter your selection:`);
                 if (!col.startsWith("#")) col = "#" + col;
                 change = true;
                 style.backgroundColor = col;
+            }
+        } else if (opt == "4") {
+            let opt = confirm('Are you sure you want to reset customization to default? (only this slot)');
+            if (opt) {
+                localStorage.removeItem(data_key + "-Style");
+                main();
+                return;
             }
         }
 
