@@ -53,10 +53,11 @@ function main() {
         JSON.parse(banner_data) : { ...DEFAULT_BANNER_STYLE };
     banner.style.backgroundImage = banner_image_style(banner_style);
 
-    banner.addEventListener('click', function(e) {
-        e.stopPropagation();
+    if (!banner.classList.contains('raf_banner_action')) {
+        banner.addEventListener('click', function(e) {
+            e.stopPropagation();
 
-        const opt = prompt(`1-Change banner image.
+            const opt = prompt(`1-Change banner image.
 2-Clear banner image.
 3-Change gradient rotation.
 4-Change gradient stop.
@@ -65,46 +66,48 @@ function main() {
 7-Reset all gradient settings to default.
 8-Exit.
 Enter your selection:`);
-        if (!opt || opt.length != 1) return;
+            if (!opt || opt.length != 1) return;
 
-        if (opt == "1") {
-            const img = prompt("New background image URL: [http link of the image]", banner_style.image);
-            if (!img) return;
-            banner_style.image = img;
-        } else if (opt == "2") {
-            banner_style.image = 'none';
-        } else if (opt == "3") {
-            const rot = prompt(`New gradient rotation degree: (default: ${DEFAULT_BANNER_STYLE.rotation}) [percentage value]`, banner_style.rotation);
-            if (!rot) return;
-            banner_style.rotation = rot;
-        } else if (opt == "4") {
-            const stp = prompt(`New gradient stop: (default: ${DEFAULT_BANNER_STYLE.stop}) [percentage value]`, banner_style.stop);
-            if (!stp) return;
-            banner_style.stop = stp;
-        } else if (opt == "5") {
-            let col = prompt(`New gradient main color: (default: ${DEFAULT_BANNER_STYLE.color1}) [hex color notation, #rrggbbaa]`, banner_style.color1);
-            if (!col) return;
-            if (col.length == 8 && !col.startsWith("#")) col = "#" + col;
-            if (col.length != 9) { alert("Input has to be 9 characters long!"); return; }
-            banner_style.color1 = col;
-        } else if (opt == "6") {
-            let col = prompt(`New gradient secondary color: (default: ${DEFAULT_BANNER_STYLE.color2}) [hex color notation, #rrggbbaa]`, banner_style.color2);
-            if (!col) return;
-            if (col.length == 8 && !col.startsWith("#")) col = "#" + col;
-            if (col.length != 9) { alert("Input has to be 9 characters long!"); return; }
-            banner_style.color2 = col;
-        } else if (opt == "7") {
-            const col = confirm("Are you sure to reset the gradient to default settings?");
-            if (!col) return;
-            banner_style.stop = DEFAULT_BANNER_STYLE.stop;
-            banner_style.rotation = DEFAULT_BANNER_STYLE.rotation;
-            banner_style.color1 = DEFAULT_BANNER_STYLE.color1;
-            banner_style.color2 = DEFAULT_BANNER_STYLE.color2;
-        } else return;
-        banner.style.backgroundImage = banner_image_style(banner_style);
-        localStorage.setItem("banner", JSON.stringify(banner_style));
-        return;
-    });
+            if (opt == "1") {
+                const img = prompt("New background image URL: [http link of the image]", banner_style.image);
+                if (!img) return;
+                banner_style.image = img;
+            } else if (opt == "2") {
+                banner_style.image = 'none';
+            } else if (opt == "3") {
+                const rot = prompt(`New gradient rotation degree: (default: ${DEFAULT_BANNER_STYLE.rotation}) [percentage value]`, banner_style.rotation);
+                if (!rot) return;
+                banner_style.rotation = rot;
+            } else if (opt == "4") {
+                const stp = prompt(`New gradient stop: (default: ${DEFAULT_BANNER_STYLE.stop}) [percentage value]`, banner_style.stop);
+                if (!stp) return;
+                banner_style.stop = stp;
+            } else if (opt == "5") {
+                let col = prompt(`New gradient main color: (default: ${DEFAULT_BANNER_STYLE.color1}) [hex color notation, #rrggbbaa]`, banner_style.color1);
+                if (!col) return;
+                if (col.length == 8 && !col.startsWith("#")) col = "#" + col;
+                if (col.length != 9) { alert("Input has to be 9 characters long!"); return; }
+                banner_style.color1 = col;
+            } else if (opt == "6") {
+                let col = prompt(`New gradient secondary color: (default: ${DEFAULT_BANNER_STYLE.color2}) [hex color notation, #rrggbbaa]`, banner_style.color2);
+                if (!col) return;
+                if (col.length == 8 && !col.startsWith("#")) col = "#" + col;
+                if (col.length != 9) { alert("Input has to be 9 characters long!"); return; }
+                banner_style.color2 = col;
+            } else if (opt == "7") {
+                const col = confirm("Are you sure to reset the gradient to default settings?");
+                if (!col) return;
+                banner_style.stop = DEFAULT_BANNER_STYLE.stop;
+                banner_style.rotation = DEFAULT_BANNER_STYLE.rotation;
+                banner_style.color1 = DEFAULT_BANNER_STYLE.color1;
+                banner_style.color2 = DEFAULT_BANNER_STYLE.color2;
+            } else return;
+            banner.style.backgroundImage = banner_image_style(banner_style);
+            localStorage.setItem("banner", JSON.stringify(banner_style));
+            return;
+        });
+        banner.classList.add('raf_banner_action');
+    }
 
     const c = document.createElement('span');
     c.className = 'flex items-center gap-4';
