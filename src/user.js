@@ -40,6 +40,11 @@ function main() {
         return;
     }
 
+    const glb_rank = banner.querySelector("a[href*='/globalRanking.php']");
+    glb_rank.addEventListener('click', function(e) {
+        e.stopPropagation();
+    });
+
     banner.style.backgroundSize = "cover";
     banner.style.backgroundPosition = "center";
 
